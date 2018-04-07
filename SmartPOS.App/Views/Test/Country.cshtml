@@ -1,0 +1,114 @@
+﻿@using SmartPOS.App.Models
+@using SmartPOS.Entity.EntityModels
+@model SmartPOS.App.Models.CountryVm
+
+@{
+    ViewBag.Title = "Country";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<Country> countries = ViewBag.Countries;
+}
+
+@section styles
+{
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+<h2>Country</h2>
+
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+        
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Code, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Code)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="Country" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="CountryTable">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+
+                <tbody>
+                    @foreach (var country in countries)
+                    {
+                        <tr>
+                            <td>@country.Code</td>
+                            <td>@country.Name</td>
+                            <td>
+                                <button onclick="LoadCountryInfo('@country.Id');" class="btn btn-sm btn-default">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+        function LoadCountryInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetCountryById", "Test")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {
+                        $('#Code').val(result.Code);
+                        $('#Name').val(result.Name);
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            $('#CountryTable').DataTable();
+        });
+
+       
+    </script>
+}

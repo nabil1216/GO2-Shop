@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.App", "SmartPOS.App\SmartPOS.App.csproj", "{7445A7F6-0BBC-4502-BD18-C611D5D44A5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Manager", "SmartPOS.Manager\SmartPOS.Manager.csproj", "{E9A2598F-8897-447D-9F0E-FBBC0E1FE0DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Gateway", "SmartPOS.Gateway\SmartPOS.Gateway.csproj", "{8C8F48E0-9641-437C-BAEB-293749AA16AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Entity", "SmartPOS.Entity\SmartPOS.Entity.csproj", "{A7BA2175-B780-4BA0-A2D6-CFDDE7F12860}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7445A7F6-0BBC-4502-BD18-C611D5D44A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7445A7F6-0BBC-4502-BD18-C611D5D44A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7445A7F6-0BBC-4502-BD18-C611D5D44A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7445A7F6-0BBC-4502-BD18-C611D5D44A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A2598F-8897-447D-9F0E-FBBC0E1FE0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A2598F-8897-447D-9F0E-FBBC0E1FE0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A2598F-8897-447D-9F0E-FBBC0E1FE0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A2598F-8897-447D-9F0E-FBBC0E1FE0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8F48E0-9641-437C-BAEB-293749AA16AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8F48E0-9641-437C-BAEB-293749AA16AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8F48E0-9641-437C-BAEB-293749AA16AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8F48E0-9641-437C-BAEB-293749AA16AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BA2175-B780-4BA0-A2D6-CFDDE7F12860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BA2175-B780-4BA0-A2D6-CFDDE7F12860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BA2175-B780-4BA0-A2D6-CFDDE7F12860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BA2175-B780-4BA0-A2D6-CFDDE7F12860}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

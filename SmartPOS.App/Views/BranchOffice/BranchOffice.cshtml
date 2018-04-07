@@ -1,0 +1,155 @@
+﻿@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+@model SmartPOS.App.Models.BranchOfficeVm
+@{
+    ViewBag.Title = "BranchOffice";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<BranchOffice> branchOffices = ViewBag.BranchOffice;
+}
+
+<h2>Branch Office</h2>
+
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.HeadOffices, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.HeadOffices, new SelectList(ViewBag.HeadOffice, "Value", "Text"), new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m => m.HeadOffices)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BranchName, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.BranchName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Address)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Phone, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Phone)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mobile, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Mobile)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Fax, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Fax, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Fax)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="HeadOffice" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="CategoryTable">
+                <thead>
+                <tr>
+                      
+                    <th>Head Office</th>
+                    <th>Branch</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th></th>
+                </tr>
+
+                <tbody>
+               
+                @foreach (var branch in branchOffices)
+                {
+                    <tr>
+                        <td>@branch.HeadOffices</td>
+                        <td>@branch.BranchName</td>
+                        <td>@branch.Address</td>
+                        <td>@branch.Email</td>
+                        <td>@branch.Mobile</td>
+                        <td>
+                            <button onclick="LoadBranchInfo('@branch.Id');" class="btn btn-sm btn-default">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script>
+        function LoadBranchInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetBranchOfficeById", "BranchOffice")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {
+                        $('#HeadOffices').val(result.HeadOffices);
+                        $('#BranchName').val(result.BranchName);
+                        $('#Address').val(result.Address);
+                        $('#Mobile').val(result.Mobile);
+                        $('#Phone').val(result.Phone);
+                        $('#Email').val(result.Email);
+                        $('#Fax').val(result.Fax);
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            $('#CategoryTable').DataTable();
+        });
+    </script>
+}

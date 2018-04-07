@@ -1,0 +1,15 @@
+E:\Asp.Net\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.pdb
+E:\Asp.Net\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.csprojResolveAssemblyReference.cache
+E:\Asp.Net\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.pdb
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.pdb
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.csprojResolveAssemblyReference.cache
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.pdb
+E:\GO2\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.dll
+E:\GO2\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.pdb
+E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.csprojResolveAssemblyReference.cache
+E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.dll
+E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.pdb

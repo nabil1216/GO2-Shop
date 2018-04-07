@@ -1,0 +1,366 @@
+﻿@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+@model SmartPOS.App.Models.ProductVm
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<Product> products = ViewBag.Product;
+}
+
+<h2>Product</h2>
+
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.ItemId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.ItemId, new SelectList(ViewBag.Items, "Value", "Text"), new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m=> m.ItemId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CategoryId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.CategoryId, new SelectList(ViewBag.Category, "Value", "Text"), new {@class = "form-control form-control-line", @onchange = "FillCategory()" })
+                    @Html.ValidationMessageFor(m => m.CategoryId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BrandId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+
+                    @Html.DropDownListFor(q => q.BrandId, new SelectList(ViewBag.Brand, "Value", "Text"), new { @class = "form-control form-control-line",@id="ddlBrand" })
+                    @Html.ValidationMessageFor(m => m.BrandId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Code, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Code)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Price, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Price)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Image1, new { @class = "col-md-12" })
+                <div class="col-md-12">
+
+
+                    @Html.TextBoxFor(m => m.Image1, new { type = "file" })
+                    @Html.ValidationMessageFor(m => m.Image1, string.Empty)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Image2, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Image2, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Image2)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="Product" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="ProductTable">
+                <thead>
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Model</th>
+                        <th></th>
+                    </tr>
+
+                <tbody>
+                    @foreach (var product in products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.BrandId</td>
+                            <td>@product.CategoryId</td>
+                            <td>@product.Code</td>
+                            <td>
+                                <button onclick="LoadProductInfo('@product.Id');" class="btn btn-sm btn-default">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+@*<script src="~/Scripts/jquery-2.2.2.min.js"></script>*@
+    <script>
+        function LoadProductInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetProductById", "Product")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {
+                        $('#ProductName').val(result.ProductName);
+                        $('#ProductId').val(result.Id);
+                        $('#Price').val(result.Price);
+                        $('#BrandId').val(result.BrandId);
+                        $('#Category').val(result.CategoryId);
+
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+        function FillCategory() {
+            // debugger;
+            var categoryId = $('#CategoryId').val();
+
+            $.ajax({
+                url: "/Product/FillCategory",
+                type: "POST",
+                data: JSON.stringify({ id: categoryId }),
+                dataType: "json",
+                //traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                    $("#ddlBrand").empty();
+
+                    // $("#ddlCategory").append("<option value='" + data.Id + "'>" + data.Name + "</option>");
+
+                    $("#ddlBrand").append("<option value=''>Select....</option>");
+                    $.each(data, function (index, item) {
+                        $("#ddlBrand").append("<option value='" + item.Id + "'>" + item.Name + "</option>");
+                    });
+                    //$.each(data, function (index, data) {
+                    //    $("#ddlCategory").append("<option value='" + data.Id + "'>" + data.Name + "</option>");
+                    //});
+
+
+
+                    //if (data.status === "Success") {
+                    //    alert("Done");
+                        
+                    //} else {
+                    //    alert("Error occurs on the Database level!");
+                    //}
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            });
+            @*alert(categoryId);
+            $.ajax({
+                url: '@Url.Action("FillCategory", "Product")',
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: { id: categoryId },
+                success: function (categories) {
+                    $("#CategoryId").html(""); // clear before appending new list 
+                    $.each(categories, function (i, category) {
+                        $("#CategoryId").append(
+                            $('<option></option>').val(category.id).html(category.Name));
+                    });
+                }
+            });*@
+        }
+        $(document).ready(function() {
+            $('#ProductTable').DataTable();
+        });
+
+
+            //get file size
+
+            //function GetFileSize(fileid) {
+
+            //    try {
+
+            //        var fileSize = 0;
+
+            //        //for IE
+
+            //        if ($.browser.msie) {
+
+            //            //before making an object of ActiveXObject,
+
+            //            //please make sure ActiveX is enabled in your IE browser
+
+            //            var objFSO = new ActiveXObject("Scripting.FileSystemObject"); var filePath = $("#" + fileid)[0].value;
+
+            //            var objFile = objFSO.getFile(filePath);
+
+            //            var fileSize = objFile.size; //size in kb
+
+            //            fileSize = fileSize / 1048576; //size in mb
+
+            //        }
+
+            //        //for FF, Safari, Opeara and Others
+
+            //        else {
+
+            //            fileSize = $("#" + fileid)[0].files[0].size //size in kb
+
+            //            fileSize = fileSize / 104857600; //size in mb
+
+            //        }
+
+ 
+
+            //        return fileSize;
+
+            //    }
+
+            //    catch (e) {
+
+            //        alert("Error is :" + e);
+
+            //    }
+
+            //}
+
+ 
+
+        //get file path from client system
+
+        //function getNameFromPath(strFilepath) {
+
+        //    var objRE = new RegExp(/([^\/\\]+)$/);
+
+        //    var strName = objRE.exec(strFilepath);
+
+ 
+
+        //    if (strName == null) {
+
+        //        return null;
+
+        //    }
+
+        //    else {
+
+        //        return strName[0];
+
+        //    }
+
+        //}
+
+ 
+
+        //$(function () {
+
+        //    $("#Image1").change(function () {
+
+        //        var file = getNameFromPath($(this).val());
+
+        //        if (file != null) {
+
+        //            var extension = file.substr((file.lastIndexOf('.') + 1));
+
+        //            switch (extension) {
+
+        //            case 'jpg':
+
+        //            case 'png':
+
+        //            case 'gif':
+
+        //                flag = true;
+
+        //                break;
+
+        //            default:
+
+        //                flag = false;
+
+        //            }
+
+        //        }
+
+        //        if (flag == false) {
+
+        //            $("#validationTxt").text("You can upload only jpg,png,gif extension file");
+
+        //            return false;
+
+        //        }
+
+        //        else {
+
+        //            var size = GetFileSize('file');
+
+        //            if (size > 3) {
+
+        //                $("#validationTxt").text("You can upload file up to 5 MB");
+
+        //            }
+
+        //            else {
+
+        //                $("#validationTxt").text("");
+
+        //            }
+
+        //        }
+
+        //    });
+
+        //});
+
+
+
+    </script>
+
+}

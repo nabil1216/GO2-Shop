@@ -1,0 +1,108 @@
+﻿@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+@model SmartPOS.App.Models.CategoryVm
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Master.cshtml";
+
+    List<Category> categories = ViewBag.Category;
+}
+<h2>CATEGORY</h2>
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            <div class="form-group">
+                      @Html.LabelFor(m => m.ItemId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.ItemId, new SelectList(ViewBag.Item, "Value", "Text"), new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m => m.ItemId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="Category" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="CategoryTable">
+                <thead>
+                    <tr>
+                      
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th></th>
+                    </tr>
+
+                <tbody>
+               
+                @foreach (var category in categories)
+                {
+                    <tr>
+                        <td>@category.ItemId</td>
+                        <td>@category.Name</td>
+                        <td>
+                            <button onclick="LoadCategoryInfo('@category.Id');" class="btn btn-sm btn-default">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script>
+        function LoadCategoryInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetCategoryById", "Category")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) { 
+                        $('#ItemId').val(result.ItemId);
+                        $('#Name').val(result.Name);
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            $('#CategoryTable').DataTable();
+        });
+    </script>
+}

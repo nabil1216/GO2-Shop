@@ -1,0 +1,181 @@
+﻿@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+@model SmartPOS.App.Models.EmployeeVm
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<Employee> employees = ViewBag.Employee;
+}
+<h2>Employee Info</h2>
+<link href="~/Content/AutoComplete.css" rel="stylesheet" />
+
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Address)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mobile, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Mobile)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EmergrncyContact, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.EmergrncyContact, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.EmergrncyContact)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.JoiningDate, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.JoiningDate)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.NID, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.NID, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.NID)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BasicSalary, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.BasicSalary, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.BasicSalary)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CardNo, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.CardNo, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.CardNo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="Employee" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="CategoryTable">
+                <thead>
+                <tr>
+                      
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Joining Date</th>
+                    <th>Card No</th>
+
+                    <th></th>
+                </tr>
+
+                <tbody>
+               
+                @foreach (var employee in employees)
+                {
+                    <tr>
+                        <td>@employee.Name</td>
+                        <td>@employee.Mobile</td>
+                        <td>@employee.JoiningDate</td>
+                        <td>@employee.CardNo</td>
+
+                        <td>
+                            <button onclick="LoadEmployeeInfo('@employee.Id');" class="btn btn-sm btn-default">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+    <script>
+        function LoadEmployeeInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeById", "Employee")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {                     
+                        $('#Name').val(result.Name);
+                        $('#Address').val(result.Address);
+                        $('#Mobile').val(result.Mobile);
+                        $('#EmergrncyContact').val(result.EmergrncyContact);
+                        $('#BasicSalary').val(result.BasicSalary);
+                        $('#JoiningDate').val(result.JoiningDate);
+                        //val($.format.date(new Date(), 'dd M yy'));
+                      
+                        $('#NID').val(result.NID);
+                        $('#CardNo').val(result.CardNo);
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        //$(document).ready(function() {
+        //    $('#CategoryTable').DataTable();
+        //});
+
+        $(document).ready(function() {
+            $("#JoiningDate").datepicker({
+                dateFormat: "dd-mm-yy", //"MM dd, yy"   "dd-mm-yy",    "DD, dd MM, yy"
+                //showAnim: "fold", //bounce , fold, slideDown
+                //minDate: "-30Y",
+                //maxDate: "-1", //  + -   M for month
+                changeMonth: true,
+                changeYear: true,
+            });
+        });
+    </script>
+
+
+}

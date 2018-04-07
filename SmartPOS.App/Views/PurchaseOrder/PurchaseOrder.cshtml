@@ -1,0 +1,355 @@
+﻿@using System.Drawing
+@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+
+
+@model SmartPOS.App.Models.PurchaseOrderVm
+@{
+    ViewBag.Title = "PurchaseOrder";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<PurchaseOrder> purchaseOrders = ViewBag.PurchaseOrder;
+}
+<link href="~/Content/AutoComplete.css" rel="stylesheet" />
+<style>
+    .input-readonly {
+        border: 1px solid #ff0000;
+        background-color: #ffeeee;
+    }
+</style>
+<h2>Purchase Order</h2>
+<div class="card">
+    <div class="card-block">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+{
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr/>
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrderDate, new {@class = "col-md-12"})
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.OrderDate, new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m => m.OrderDate)
+                </div>           
+            </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrderNo, new { @class = "col-md-6" })
+
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control form-control-line" })
+            @Html.ValidationMessageFor(m => m.OrderNo)
+            @Html.TextBoxFor(m => m.ProductId, new { @class = "form-control form-control-line input-readonly" })
+            @Html.ValidationMessageFor(m => m.ProductId)
+        </div>
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.OrderNo, new {@class = "col-md-12"})
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.OrderNo, new {@class = "form-control form-control-line"})
+            @Html.ValidationMessageFor(m => m.OrderNo)
+        </div>
+    </div>*@        
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ModelNo, new { @class = "col-md-12" })
+        <div class="col-md-12">
+
+            @Html.DropDownListFor(q => q.ModelNo, new SelectList(ViewBag.Category, "Value", "Text"), new { @class = "form-control form-control-line",@id="ddlModelNo" })
+            @Html.ValidationMessageFor(m => m.ModelNo)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductName, new {@class = "col-md-12"})
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.ProductName, new {@class = "form-control form-control-line"})
+            @Html.ValidationMessageFor(m => m.ProductName)
+        </div>
+    </div>
+            
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price, new {@class = "col-md-12"})
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Price, new {@class = "form-control form-control-line"})
+            @Html.ValidationMessageFor(m => m.Price)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrderQuantity, new {@class = "col-md-12"})
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.OrderQuantity, new {@class = "form-control form-control-line"})
+            @Html.ValidationMessageFor(m => m.OrderQuantity)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Amount, new { @class = "col-md-12" })
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control form-control-line" })
+            @Html.ValidationMessageFor(m => m.OrderQuantity)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Supplier, new { @class = "col-md-12" })
+        <div class="col-md-12">
+                    
+            @Html.DropDownListFor(q => q.Supplier, new SelectList(ViewBag.Supplier, "Value", "Text"), new {@class = "form-control form-control-line"})
+            @Html.ValidationMessageFor(m=> m.Supplier)
+        </div>
+    </div>
+
+            @*<div class="form-group">
+                <div class="col-md-12">
+                    <input type="button" id="btnAdd" class="btn btn-success" value="Add" onclick="Add();" />
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                <div class="control-label col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <table id="tblPurchaseOrder" class="easyui-datagrid" style="width: 200px; height:250px"
+                           data-options="fitColumns:true,singleSelect:true">
+                        <thead>
+                        <tr>
+                            <th data-options="field:'ModelNo',width:100">Model</th>
+                            <th data-options="field:'ProductName',width:50">Name</th>
+                            <th data-options="field:'Price',width:50">Price</th>
+
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>*@
+
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.HiddenFor(m => m.Id)
+            <input type="submit" class="btn btn-success" value="Save" name="PurchaseOrder" />
+        </div>
+    </div>
+        }
+    </div>
+</div>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="PurchaseOrderTable">
+                <thead>
+                <tr>
+
+                    <th>Order No</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+
+                <tbody>
+                @foreach (var purchaseOrder  in purchaseOrders)
+                {
+                    <tr>
+                        <td>@purchaseOrder.OrderNo</td>
+                        <td>@purchaseOrder.OrderDate</td>
+                        <td>@purchaseOrder.ProductId</td>
+                        <td>@purchaseOrder.Price</td>
+                        <td>@purchaseOrder.OrderQuantity</td>
+                        <td>@purchaseOrder.Amount</td>
+
+                        <td>
+                            <button onclick="LoadPurchaseOrderInfo('@purchaseOrder.Id');" class="btn btn-sm btn-default">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script>
+        
+        $(function () {
+
+            $("#OrderQuantity,#Price").keyup(function (e) {
+
+                var q = $("#OrderQuantity").val();
+                var p = $("#Price").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = parseFloat(q) * parseFloat(p);
+                }
+                $("#Amount").val(result);
+
+            });
+
+        });
+
+
+        function LoadPurchaseOrderInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetPurchaseOrderById", "PurchaseOrder")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {
+                        $('#OrderNo').val(result.OrderNo);
+                        $('#ProductId').val(result.ProductId); 
+                        $('#OrderQuantity').val(result.OrderQuantity);
+                        $('#ProductName').val(result.ProductName);
+                        $('#ModelNo').val(result.ModelNo);
+
+                        $('#Price').val(result.Price);
+                        $('#Amount').val(result.Amount);
+                        $('#Supplier').val(result.Supplier);
+                        $('#OrderDate').val(result.OrderDate);
+
+
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            $('#PurchaseOrderTable').DataTable();
+        });
+
+
+        $(document).ready(function () {
+            $("#OrderDate").datepicker({
+                dateFormat: "dd-mm-yy", //"MM dd, yy"   "dd-mm-yy",    "DD, dd MM, yy"
+                //showAnim: "fold", //bounce , fold, slideDown
+                //minDate: "-30Y",
+                //maxDate: "-1", //  + -   M for month
+                changeMonth: true,
+                changeYear: true,
+            });
+        });
+
+        $(document).ready(function() {
+            $("#ModelNo").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/PurchaseOrder/FillCategory",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+
+
+
+                        success: function (data) {
+                            //$('#ProductName').val(result.ProductName);
+
+                            response($.map(data,
+                                function (item) {
+                                    $('#ProductName').val(item.ProductName);
+                                    $('#Price').val(item.Price);
+                                    $('#ProductId').val(item.Id);
+                                    //$('#ProductId').value(item.ProductId);
+
+                                    return { label: item.Name, value: item.Name };
+
+
+
+                                }));
+
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "",
+                    results: function(count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+        });
+
+    
+        //var rows = [];
+        //function Add() {
+        //    debugger;
+        //    rows.push({
+        //        ModelNo: $('#ModelNo').val(),
+        //        ProductName: $('#ProductName').val(),
+        //        Price: $('#Price').val()
+
+        //    });
+        //    $('#tblPurcahseOrder').datagrid('loadData', rows);
+        //}
+
+        @*function HasRowInGrid() {
+            var gridRowAll = $('#tblPurcahseOrder').datagrid('getRows');
+            if (gridRowAll.length > 0) {
+                return true;
+            }
+            return false;
+        }
+        function SaveDate() {
+            debugger;
+            var currency = $('#tblPurcahseOrder').datagrid('getRows');
+            if (HasRowInGrid()) {
+                $('#btnSave').prop('disabled', true);
+                debugger;
+                var navUrl = '/PurchaseOrder/PurchaseOrder';
+                $.ajax({
+                    url: navUrl,
+                    type: 'Post',
+                    data: JSON.stringify({ currencys: currency }),
+                    dataType: 'json',
+                    async: false,
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result != "Saved successfully") {
+                            $("#btnSave").prop('disabled', false);
+                            toastr.error(result.Message);
+                            alert("Data not save");
+                            return;
+                        }
+                        else if (result == "Session Out") {
+                            window.location = '@Url.Action("LogOn", "Account")';
+                        }
+                        else {
+                            toastr.success("Saved Successfully!! But error ocured to view");
+                            alert("Saved Successfully");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        toastr.error(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                    }
+
+                });
+            }
+            else {
+                alert("There is no information to save");
+            }
+        }*@
+
+
+
+    </script>
+}
+
