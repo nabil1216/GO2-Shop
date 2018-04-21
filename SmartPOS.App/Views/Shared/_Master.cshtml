@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+    string name = ticket.Name;
+    ViewBag.UserName = name; 
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -105,7 +111,8 @@
                 <!-- ============================================================== -->
                 <ul class="navbar-nav my-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Content/assets/images/users/1.jpg" alt="user" class="profile-pic m-r-5"/>Markarn Doe</a>
+                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Content/assets/images/users/1.jpg" alt="user" class="profile-pic m-r-5"/>
+                        @ViewBag.UserName</a>
                     </li>
                 </ul>
             </div>
