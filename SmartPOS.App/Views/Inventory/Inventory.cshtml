@@ -20,26 +20,31 @@
 </style>
 <div class="card">
     <div class="card-block">
-        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material row" }))
         {
             @Html.AntiForgeryToken()
             @*<h4>Enter Currency Info</h4>*@
-            <hr />
+            @*<hr />*@
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
 
 
-                <div class="form-group">
-                @Html.LabelFor(m => m.ProductCode, new { @class = "col-md-6" })
-
-                <div class="col-md-4">
-                    @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.ProductCode)
-                    @*@Html.LabelFor(m => m.ProductId, new { @class = "form-control form-control-line input-readonly" })*@
-                </div>
+            <div class="col-md-12" style="border:0.5px solid #d8d6d6;">
             </div>
-            
-            
-               
+            <div class="col-md-6" style="text-align: left;">
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductCode, new { @class = "col-md-12" })
+
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.ProductCode)
+                        @*@Html.LabelFor(m => m.ProductId, new { @class = "form-control form-control-line input-readonly" })*@
+                    </div>
+                </div>
+
+
+
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductName, new { @class = "col-md-12" })
                     <div class="col-md-12">
@@ -56,57 +61,68 @@
                     </div>
                 </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Quanitity, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Quanitity, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Quanitity)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.SellQuantity, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.SellQuantity, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Quanitity)
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.DiscountPercent, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.DiscountPercent, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.DiscountPercent)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Increase, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Increase, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Increase)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Decrease, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Decrease, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Decrease)
-                </div> 
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.SellPrice, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.SellPrice, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.SellPrice)
-                </div> 
-            </div>
                 <div class="form-group">
+                    @Html.LabelFor(m => m.Quanitity, new { @class = "col-md-12" })
                     <div class="col-md-12">
-                        @Html.HiddenFor(m => m.Id)
-                        <input type="submit" class="btn btn-success" value="Save" name="PurchaseOrder" />
+                        @Html.TextBoxFor(m => m.Quanitity, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.Quanitity)
                     </div>
                 </div>
-                }
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SellQuantity, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.SellQuantity, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.Quanitity)
+                    </div>
+                </div>
+
+                
+
+
+
+
             </div>
+
+                <div class="offset-md-0 col-md-6" style="text-align: left">
+                    <br />
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DiscountPercent, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.DiscountPercent, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.DiscountPercent)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Increase, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Increase, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.Increase)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Decrease, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Decrease, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.Decrease)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SellPrice, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.SellPrice, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.SellPrice)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.HiddenFor(m => m.Id)
+                            <input type="submit" class="btn btn-success" value="Save" name="PurchaseOrder" />
+                        </div>
+                    </div>
+                    </div>
+                    }
+                </div>
 </div>
 <div class="card">
     <div class="card-block">
@@ -293,8 +309,8 @@
                                     $('#ProductName').val(item.ProductName);
                                     $('#Price').val(item.Price);
                                     $('#ProductId').val(item.ProductId);
-                                    $('#ProductCode').value(item.ProductCode);
-                                    $('#Quantity').value(item.Quantity);
+                                    $('#ProductCode').val(item.ProductCode);
+                                    $('#Quanitity').val(item.Quantity);
 
                                     return { label: item.Name, value: item.Name };
 
