@@ -50,8 +50,10 @@
     <Compile Include="CommonManager.cs" />
     <Compile Include="CountryManager.cs" />
     <Compile Include="CurrencyManager.cs" />
+    <Compile Include="DiscountManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="HeadOfficeManager.cs" />
+    <Compile Include="InventoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -124,7 +124,7 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "Select * from tbl_Product where ModelNo like '%'+@prefix+'%'";
+                Query = "Select * from tbl_Product where ProductCode like '%'+@prefix+'%'";
                 Command.CommandText = Query;
                 Command.Parameters.Clear();
                 Command.Parameters.AddWithValue("@prefix", prefix);
@@ -138,10 +138,11 @@ namespace SmartPOS.Gateway
                     Common Common = new Common()
                     {
                         Id = (int)Reader["ProductId"],
-                        Name = Reader["ModelNo"].ToString(),
                         ProductName = Reader["ProductName"].ToString(),
-                        Price = Reader["Price"].ToString()
-
+                        ProductCode = Reader["ProductCode"].ToString(),
+                        Price = Reader["Price"].ToString(),
+                        Quantity = Reader["Quantity"].ToString()
+                       
                     };
 
                     commons.Add(Common);

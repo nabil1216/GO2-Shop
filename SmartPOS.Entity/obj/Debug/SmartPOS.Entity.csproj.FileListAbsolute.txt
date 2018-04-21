@@ -13,3 +13,8 @@ E:\GO2\SmartPOS\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.pdb
 E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.csprojResolveAssemblyReference.cache
 E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.dll
 E:\GO2\SmartPOS\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.pdb
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.dll
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Entity\bin\Debug\SmartPOS.Entity.pdb
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.csprojResolveAssemblyReference.cache
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.dll
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Entity\obj\Debug\SmartPOS.Entity.pdb

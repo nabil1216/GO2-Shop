@@ -19,3 +19,10 @@ E:\GO2\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.pdb
 E:\GO2\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.csprojResolveAssemblyReference.cache
 E:\GO2\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.dll
 E:\GO2\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.pdb
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.dll
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.pdb
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.dll
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.pdb
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.csprojResolveAssemblyReference.cache
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.dll
+E:\GO2\SmartShop\GO2-Shop\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.pdb

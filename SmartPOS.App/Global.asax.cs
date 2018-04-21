@@ -43,6 +43,12 @@ namespace SmartPOS.App
                 conf.CreateMap<UserVm, User>();
                 conf.CreateMap<User, UserVm>();
 
+                conf.CreateMap<DiscountVm, Discount>();
+                conf.CreateMap<Discount, DiscountVm>();
+
+                conf.CreateMap<InventoryVm, Inventory>();
+                conf.CreateMap<Inventory, InventoryVm>();
+
             });
         }
     }

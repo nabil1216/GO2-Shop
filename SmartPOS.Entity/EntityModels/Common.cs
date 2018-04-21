@@ -11,9 +11,12 @@ namespace SmartPOS.Entity.EntityModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string ProductName { get; set; }
+        public string ProductCode { get; set; } 
+
         public string Price { get; set; }
         public string OrederNo { get; set; }
         public string CategoryId { get; set; }
+        public string Quantity { get; set; }
 
 
     }

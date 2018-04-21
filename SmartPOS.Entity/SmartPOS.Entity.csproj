@@ -50,8 +50,10 @@
     <Compile Include="EntityModels\Common.cs" />
     <Compile Include="EntityModels\Country.cs" />
     <Compile Include="EntityModels\Currency.cs" />
+    <Compile Include="EntityModels\Discount.cs" />
     <Compile Include="EntityModels\Employee.cs" />
     <Compile Include="EntityModels\HeadOffice.cs" />
+    <Compile Include="EntityModels\Inventory.cs" />
     <Compile Include="EntityModels\Item.cs" />
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\PurchaseOrder.cs" />

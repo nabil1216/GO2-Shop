@@ -32,23 +32,17 @@ namespace SmartPOS.App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Product(ProductVm model)
+        public ActionResult Product(ProductVm model, HttpPostedFileBase file1, HttpPostedFileBase file2)
         {
+           
             if (ModelState.IsValid)
             {
                 Entity.EntityModels.Product product = Mapper.Map<Entity.EntityModels.Product>(model);
                 if (product.Id == 0)
                 {
-                    var extension = Path.GetExtension(model.Image1.FileName);
 
-                    var path = Path.Combine(Server.MapPath("~/Content/Student/Photo/"));
-
-                    if (!Directory.Exists(path))
-
-                        Directory.CreateDirectory(path);
-
-                    model.Image1.SaveAs(path + model.Id + extension);
-
+                    product.File1 = file1;
+                    product.File2 = file2;
                     ViewBag.message = productManager.Save(product);
                 }
                 else

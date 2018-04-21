@@ -11,90 +11,115 @@
 
 <div class="card">
     <div class="card-block">
-        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material row", enctype = "multipart/form-data", role = "form" }))
         {
             @Html.AntiForgeryToken()
             @*<h4>Enter Currency Info</h4>*@
-            <hr />
+
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-            <div class="form-group">
-                @Html.LabelFor(m => m.ItemId, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    
-                    @Html.DropDownListFor(q => q.ItemId, new SelectList(ViewBag.Items, "Value", "Text"), new {@class = "form-control form-control-line"})
-                    @Html.ValidationMessageFor(m=> m.ItemId)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.CategoryId, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    
-                    @Html.DropDownListFor(q => q.CategoryId, new SelectList(ViewBag.Category, "Value", "Text"), new {@class = "form-control form-control-line", @onchange = "FillCategory()" })
-                    @Html.ValidationMessageFor(m => m.CategoryId)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.BrandId, new { @class = "col-md-12" })
-                <div class="col-md-12">
 
-                    @Html.DropDownListFor(q => q.BrandId, new SelectList(ViewBag.Brand, "Value", "Text"), new { @class = "form-control form-control-line",@id="ddlBrand" })
-                    @Html.ValidationMessageFor(m => m.BrandId)
+            <div class="form-group col-md-6" style="text-align: left;">
+                <hr />
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ItemId, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(q => q.ItemId, new SelectList(ViewBag.Items, "Value", "Text"), new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.ItemId)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Code, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Code)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CategoryId, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(q => q.CategoryId, new SelectList(ViewBag.Category, "Value", "Text"), new { @class = "form-control form-control-line", @onchange = "FillCategory()" })
+                        @Html.ValidationMessageFor(m => m.CategoryId)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Name)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BrandId, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+
+                        @Html.DropDownListFor(q => q.BrandId, new SelectList(ViewBag.Brand, "Value", "Text"), new { @class = "form-control form-control-line", @id = "ddlBrand" })
+                        @Html.ValidationMessageFor(m => m.BrandId)
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Price, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Price)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Code, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Code, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.Code)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Description, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Description)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Image1, new { @class = "col-md-12" })
-                <div class="col-md-12">
+                <div class="offset-md-0 col-md-6" style="text-align: left">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Quantity, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.Quantity)
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Price, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.Price)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-line" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Image1, new { @class = "col-md-12" })
+                        <div class="col-md-12">
 
 
-                    @Html.TextBoxFor(m => m.Image1, new { type = "file" })
-                    @Html.ValidationMessageFor(m => m.Image1, string.Empty)
+                            @*@Html.TextBoxFor(m => m.Image1, new { type = "file" })*@
+                            @*@Html.ValidationMessageFor(m => m.Image1, string.Empty)*@
+                            <div>
+                                @*<label for="file">Filename:</label>*@
+                                <input type="file" name="file1" id="file1" />
+                                <input type="file" name="file2" id="file2" />
+                            </div>
+                        </div>
+
+                    </div>
+                    @*<div class="form-group">
+                            @Html.LabelFor(m => m.Image2, new { @class = "col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.Image2, new { @class = "form-control form-control-line" })
+                                @Html.ValidationMessageFor(m => m.Image2)
+                            </div>
+                        </div>*@
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Image2, new { @class = "col-md-12" })
-                <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Image2, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Image2)
+                <div class="col-md-12" style="text-align: center;">
+                    <div class="col-md-12">
+                        @Html.HiddenFor(m => m.Id)
+                        <input type="submit" class="btn btn-success" value="Save" name="Product" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
-                    @Html.HiddenFor(m => m.Id)
-                    <input type="submit" class="btn btn-success" value="Save" name="Product" />
-                </div>
-            </div>
         }
     </div>
 </div>
+
+
+
 
 <div class="card">
     <div class="card-block">
@@ -133,7 +158,7 @@
 @section scripts{
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-@*<script src="~/Scripts/jquery-2.2.2.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-2.2.2.min.js"></script>*@
     <script>
         function LoadProductInfo(id) {
             if (id != null) {
@@ -145,11 +170,13 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (result) {
-                        $('#ProductName').val(result.ProductName);
-                        $('#ProductId').val(result.Id);
-                        $('#Price').val(result.Price);
+                        $('#Name').val(result.Name);
+                        $('#CategoryId').val(result.CategoryId);
                         $('#BrandId').val(result.BrandId);
-                        $('#Category').val(result.CategoryId);
+                        $('#Price').val(result.Price);
+                        $('#Code').val(result.Code);
+                        $('#Description').val(result.Description);
+                        $('#ItemId').val(result.ItemId);
 
 
                     },
@@ -191,7 +218,7 @@
 
                     //if (data.status === "Success") {
                     //    alert("Done");
-                        
+
                     //} else {
                     //    alert("Error occurs on the Database level!");
                     //}
@@ -208,7 +235,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: { id: categoryId },
                 success: function (categories) {
-                    $("#CategoryId").html(""); // clear before appending new list 
+                    $("#CategoryId").html(""); // clear before appending new list
                     $.each(categories, function (i, category) {
                         $("#CategoryId").append(
                             $('<option></option>').val(category.id).html(category.Name));
@@ -257,7 +284,7 @@
 
             //        }
 
- 
+
 
             //        return fileSize;
 
@@ -271,7 +298,7 @@
 
             //}
 
- 
+
 
         //get file path from client system
 
@@ -281,7 +308,7 @@
 
         //    var strName = objRE.exec(strFilepath);
 
- 
+
 
         //    if (strName == null) {
 
@@ -297,7 +324,7 @@
 
         //}
 
- 
+
 
         //$(function () {
 

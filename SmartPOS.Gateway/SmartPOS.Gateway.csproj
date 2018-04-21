@@ -34,6 +34,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,8 +51,10 @@
     <Compile Include="ConnectionGateway.cs" />
     <Compile Include="CountryGateway.cs" />
     <Compile Include="CurrencyGateWay.cs" />
+    <Compile Include="DiscountGateway.cs" />
     <Compile Include="EmployeeGateway.cs" />
     <Compile Include="HeadOfficeGateway.cs" />
+    <Compile Include="InventoryGateway.cs" />
     <Compile Include="ItemGateway.cs" />
     <Compile Include="ProductGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

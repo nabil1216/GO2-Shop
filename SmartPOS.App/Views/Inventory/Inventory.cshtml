@@ -1,0 +1,327 @@
+﻿@using System.Drawing
+@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+
+
+@model SmartPOS.App.Models.InventoryVm
+@{
+    ViewBag.Title = "Inventory";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<Inventory> inventories = ViewBag.Inventory;
+}
+<link href="~/Content/AutoComplete.css" rel="stylesheet" />
+
+<h2>Inventory</h2>
+<style>
+    .input-readonly {
+        border: 1px solid #808080;
+        background-color: #808080;
+    }
+</style>
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+           
+
+                <div class="form-group">
+                @Html.LabelFor(m => m.ProductCode, new { @class = "col-md-6" })
+
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.ProductCode)
+                    @*@Html.LabelFor(m => m.ProductId, new { @class = "form-control form-control-line input-readonly" })*@
+                </div>
+            </div>
+            
+
+                @*<div class="form-group">
+                    @Html.LabelFor(m => m.DiscountAmount, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.DiscountAmount)
+
+                    </div>
+                </div>*@
+
+
+
+               
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductName, new { @class = "col-md-12" })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.ProductName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Price, new { @class = "col-md-12", @readonly = true })
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-line" })
+                        @Html.ValidationMessageFor(m => m.Price)
+                    </div>
+                </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Quanitity, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Quanitity, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Quanitity)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SellQuantity, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.SellQuantity, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Quanitity)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DiscountPercent, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.DiscountPercent, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.DiscountPercent)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Increase, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Increase, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Increase)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Decrease, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Decrease, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Decrease)
+                </div>
+            </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.HiddenFor(m => m.Id)
+                        <input type="submit" class="btn btn-success" value="Save" name="PurchaseOrder" />
+                    </div>
+                </div>
+                }
+            </div>
+</div>
+<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="InventoryTable">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Selling Price</th>
+                        <th>Discount Amount</th>
+
+                        <th></th>
+                    </tr>
+
+                <tbody>
+                    @foreach (var invetory in inventories)
+                    {
+                        <tr>
+                            <td>@invetory.Quantity</td>
+                            <td>@invetory.SellPrice</td>
+                            <td>@invetory.DiscountAmount</td>
+
+                            <td>
+                                <button onclick="LoadItemInfo('@invetory.Id');" class="btn btn-sm btn-default">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script>
+
+        $(function() {
+            $('#Option1').click(function() {
+                $('#DiscountPercent').removeAttr("disabled");
+                $('#DiscountAmount').attr("disabled", "disabled");
+            });
+            $('#Option1').click(function() {
+                $('#DiscountAmount').attr("disabled", "disabled");
+
+            });
+        });
+
+        $('#InventoryTable').on('click',
+            'tbody td:not(:first-child)',
+            function(e) {
+                editor.inline(this);
+            });
+        //$('input[type="radio"]').change(function () {
+
+        //    // Get the value of currently clicked radio button
+        //    var value = $(this).val();
+
+        //    // Find the corresponding textbox inside the div that has the id same as radio button value andremove it disabled attribute
+        //    $('#Option1' + $(this).val())
+        //    .children('input[type="text"]')
+        //    .removeAttr('disabled');
+
+
+        //    $('#DiscountPercent' + $(this).val())
+        //    .children('input[type="text"]')
+        //    .removeAttr('disabled');
+
+
+        //    // Find all radio button and find its corresponding textbox and make it disable except the checked radio button.
+        //    $('input[type="radio"]').each(function() {
+        //        if (this.value != value) {
+        //            $('DiscountAmount' + this.value)
+        //                .children('input[type="text"]')
+        //                .attr('disabled', 'disabled');
+        //        }
+        //    });
+        //});
+
+
+        $(function() {
+
+            $("#DiscountAmount,#Price").keyup(function(e) {
+
+                var q = $("#DiscountAmount").val();
+                var p = $("#Price").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = parseFloat(q) * parseFloat(p);
+                }
+                $("#Price").val(result);
+
+            });
+
+        });
+
+
+        $(function() {
+
+            $("#DiscountPercent,#Price").keyup(function(e) {
+
+                var q = $("#DiscountPercent").val();
+                var p = $("#Price").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = (parseFloat(q) * parseFloat(p)) / 100;
+                }
+                $("#Price").val(result);
+
+            });
+
+        });
+
+
+        function LoadPurchaseOrderInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetPurchaseOrderById", "PurchaseOrder")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function(result) {
+                        $('#OrderNo').val(result.OrderNo);
+                        $('#ProductId').val(result.ProductId);
+                        $('#OrderQuantity').val(result.OrderQuantity);
+                        $('#ProductName').val(result.ProductName);
+                        $('#ModelNo').val(result.ModelNo);
+
+                        $('#Price').val(result.Price);
+                        $('#Amount').val(result.Amount);
+                        $('#Supplier').val(result.Supplier);
+                        $('#OrderDate').val(result.OrderDate);
+
+
+                        $('#Id').val(result.Id);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function() {
+
+                    }
+                });
+            }
+        }
+
+        //$(document).ready(function() {
+        //    $('#InventoryTable').DataTable();
+        //});
+
+
+        $(document).ready(function() {
+            $("#OrderDate").datepicker({
+                dateFormat: "dd-mm-yy", //"MM dd, yy"   "dd-mm-yy",    "DD, dd MM, yy"
+                //showAnim: "fold", //bounce , fold, slideDown
+                //minDate: "-30Y",
+                //maxDate: "-1", //  + -   M for month
+                changeMonth: true,
+                changeYear: true,
+            });
+        });
+
+        $(document).ready(function() {
+            $("#ProductCode").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/Inventory/FillProductList",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+
+
+                        success: function(data) {
+                            //$('#ProductCode').val(result.ProductCode);
+                            // $('#ProductCode').val(result.ProductCode);
+                            response($.map(data,
+                                function(item) {
+
+                                    $('#ProductName').val(item.ProductName);
+                                    $('#Price').val(item.Price);
+                                    $('#ProductId').val(item.ProductId);
+                                    $('#ProductCode').value(item.ProductCode);
+                                    $('#Quantity').value(item.Quantity);
+
+                                    return { label: item.Name, value: item.Name };
+
+
+                                }));
+
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "",
+                    results: function(count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                }
+            });
+        });
+
+
+    </script>
+
+}
