@@ -300,19 +300,20 @@
                         data: { Prefix: request.term },
 
 
-                        success: function(data) {
-                            //$('#ProductCode').val(result.ProductCode);
-                            // $('#ProductCode').val(result.ProductCode);
+                        success: function (data) {
+                            
+                            //$('#ProductCode').val(data.ProductCode);
+                            console.log(data);
+
                             response($.map(data,
                                 function(item) {
-
-                                    $('#ProductName').val(item.ProductName);
+                                    $('#ProductName').val(item.ProductName);                                    
                                     $('#Price').val(item.Price);
                                     $('#ProductId').val(item.ProductId);
                                     $('#ProductCode').val(item.ProductCode);
                                     $('#Quanitity').val(item.Quantity);
-
-                                    return { label: item.Name, value: item.Name };
+                                    
+                                    return { label: item.ProductCode, value: item.ProductCode };
 
 
                                 }));
