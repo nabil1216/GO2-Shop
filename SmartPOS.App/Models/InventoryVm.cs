@@ -11,7 +11,7 @@ namespace SmartPOS.App.Models
     {
         public int Id { get; set; }
         [Required]
-        public string Quanitity { get; set; }
+        public string Quantity { get; set; }
         [Required]
         [DisplayName("Product Code")]
         public string ProductCode { get; set; }
@@ -31,6 +31,7 @@ namespace SmartPOS.App.Models
         public string DiscountAmount { get; set; }
         public string SellQuantity { get; set; }
         public string SellPrice { get; set; }
+        public string RemainingQuantity { get; set; }
 
 
 
