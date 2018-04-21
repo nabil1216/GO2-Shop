@@ -27,7 +27,7 @@ namespace SmartPOS.Gateway
                         Id = (int)Reader["InventoryId"],
 
 
-                        Quantity = (int)Reader["Quantity"],
+                        //Quantity = (int)Reader["Quantity"],
                         ProductId = Reader["ProductId"].ToString(),
                         SellPrice = Reader["SellingPrice"].ToString(),
                         DiscountAmount = Reader["DiscountAmount"].ToString()

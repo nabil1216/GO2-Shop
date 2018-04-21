@@ -9,7 +9,7 @@ namespace SmartPOS.Entity.EntityModels
    public class Inventory
     {
         public int Id { get; set; }
-        public int Quantity { get; set; }
+      //  public int Quantity { get; set; }
         public string ProductId { get; set; }
 
         public string ProductCode { get; set; }

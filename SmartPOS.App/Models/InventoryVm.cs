@@ -16,8 +16,6 @@ namespace SmartPOS.App.Models
         [DisplayName("Product Code")]
         public string ProductCode { get; set; }
         public string  Name { get; set; }
-        public string ItemId { get; set; }
-        public string CategoryId { get; set; }
         public string ProductId { get; set; }
         [DisplayName("Display Name")]
         public string ProductName { get; set; }
@@ -33,8 +31,6 @@ namespace SmartPOS.App.Models
         public string DiscountAmount { get; set; }
         public string SellQuantity { get; set; }
         public string SellPrice { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime UpdateDate { get; set; }
 
 
 

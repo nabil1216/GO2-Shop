@@ -39,18 +39,7 @@
                 </div>
             </div>
             
-
-                @*<div class="form-group">
-                    @Html.LabelFor(m => m.DiscountAmount, new { @class = "col-md-12" })
-                    <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control form-control-line" })
-                        @Html.ValidationMessageFor(m => m.DiscountAmount)
-
-                    </div>
-                </div>*@
-
-
-
+            
                
                 <div class="form-group">
                     @Html.LabelFor(m => m.ProductName, new { @class = "col-md-12" })
@@ -102,7 +91,14 @@
                 <div class="col-md-12">
                     @Html.TextBoxFor(m => m.Decrease, new { @class = "form-control form-control-line" })
                     @Html.ValidationMessageFor(m => m.Decrease)
-                </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SellPrice, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.SellPrice, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.SellPrice)
+                </div> 
             </div>
                 <div class="form-group">
                     <div class="col-md-12">
@@ -130,7 +126,7 @@
                     @foreach (var invetory in inventories)
                     {
                         <tr>
-                            <td>@invetory.Quantity</td>
+                            <td>@invetory.SellQuantity</td>
                             <td>@invetory.SellPrice</td>
                             <td>@invetory.DiscountAmount</td>
 
@@ -169,49 +165,10 @@
             function(e) {
                 editor.inline(this);
             });
-        //$('input[type="radio"]').change(function () {
-
-        //    // Get the value of currently clicked radio button
-        //    var value = $(this).val();
-
-        //    // Find the corresponding textbox inside the div that has the id same as radio button value andremove it disabled attribute
-        //    $('#Option1' + $(this).val())
-        //    .children('input[type="text"]')
-        //    .removeAttr('disabled');
+     
 
 
-        //    $('#DiscountPercent' + $(this).val())
-        //    .children('input[type="text"]')
-        //    .removeAttr('disabled');
-
-
-        //    // Find all radio button and find its corresponding textbox and make it disable except the checked radio button.
-        //    $('input[type="radio"]').each(function() {
-        //        if (this.value != value) {
-        //            $('DiscountAmount' + this.value)
-        //                .children('input[type="text"]')
-        //                .attr('disabled', 'disabled');
-        //        }
-        //    });
-        //});
-
-
-        $(function() {
-
-            $("#DiscountAmount,#Price").keyup(function(e) {
-
-                var q = $("#DiscountAmount").val();
-                var p = $("#Price").val();
-                var result = "";
-
-                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
-                    result = parseFloat(q) * parseFloat(p);
-                }
-                $("#Price").val(result);
-
-            });
-
-        });
+       
 
 
         $(function() {
@@ -225,7 +182,43 @@
                 if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
                     result = (parseFloat(q) * parseFloat(p)) / 100;
                 }
-                $("#Price").val(result);
+                $("#SellPrice").val(result);
+
+            });
+
+        });
+
+
+        $(function () {
+
+            $("#Increase,#Price").keyup(function (e) {
+
+                var q = $("#Increase").val();
+                var p = $("#Price").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = (parseFloat(q) + parseFloat(p));
+                }
+                $("#SellPrice").val(result);
+
+            });
+
+        });
+
+
+        $(function () {
+
+            $("#Decrease,#Price").keyup(function (e) {
+
+                var q = $("#Decrease").val();
+                var p = $("#Price").val();
+                var result = "";
+
+                if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                    result = (parseFloat(q) - parseFloat(p));
+                }
+                $("#SellPrice").val(result);
 
             });
 
